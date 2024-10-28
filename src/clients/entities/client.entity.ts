@@ -1,3 +1,4 @@
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 
 @Entity()
@@ -17,4 +18,6 @@ export class Client {
   @Column()
   phone: string;
 
+  @OneToOne(() => Wallet, (wallet) => wallet.client)
+  wallet: Wallet;
 }
