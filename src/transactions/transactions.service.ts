@@ -69,7 +69,10 @@ export class TransactionsService {
 
   async confirmPayment(confirmDto: ConfirmPaymentDto): Promise<any> {
     const { sessionId, token } = confirmDto;
-
+    if(!sessionId || !token){
+      throw new BadRequestException('Token o sesión inválidos.');
+    }
+    
     const transaction = await this.transactionRepository.findOne({
       where: { sessionId, token, confirmed: false },
       relations: ['client'],
@@ -107,8 +110,8 @@ export class TransactionsService {
       // Configurar con tu proveedor de email
       service: 'Gmail',
       auth: {
-        user: process.env.EMAIL_USER ,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER || 'duvannarvaez17@gmail.com',
+        pass: process.env.EMAIL_PASS || "puvc xjvy lpha ssgr",
       },
     });
 
